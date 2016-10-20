@@ -9,7 +9,11 @@
 
 echo "==> Waiting for PostgreSQL to be ready..."
 
-while ! nc -z ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}; do
+# while ! nc -z ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}; do
+# Centos7
+# nc --version
+# Ncat: Version 6.40 ( http://nmap.org/ncat )
+while ! nc --recv-only --send-only -w 1 ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}; do
   echo "==> $(date) Connecting to ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}..."
   sleep 1
 done
