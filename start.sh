@@ -9,6 +9,7 @@
 
 echo "==> Waiting for PostgreSQL to be ready..."
 
+# Centos6 and Debian/Ubuntu
 # while ! nc -z ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}; do
 # Centos7
 # nc --version
