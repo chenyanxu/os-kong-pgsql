@@ -13,6 +13,7 @@ echo "==> Waiting for PostgreSQL to be ready..."
 # Centos7
 # nc --version
 # Ncat: Version 6.40 ( http://nmap.org/ncat )
+# See: http://stackoverflow.com/questions/4922943/test-from-shell-script-if-remote-tcp-port-is-open
 while ! nc --recv-only --send-only -w 1 ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}; do
   echo "==> $(date) Connecting to ${KONG_DATABASE_SERVICE_HOST} ${KONG_DATABASE_SERVICE_PORT}..."
   sleep 1
