@@ -1,0 +1,237 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "oracle-loopback"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/v1/lifes/shp/individuals/findBySocialSecurityNo": {
+      "post": {
+        "tags": [
+          "Individual"
+        ],
+        "operationId": "Individual.findBySocialSecurityNo",
+        "parameters": [
+          {
+            "name": "socialSecurityNo",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/lifes/shp/individuals/findByIndividualId": {
+      "post": {
+        "tags": [
+          "Individual"
+        ],
+        "operationId": "Individual.findByIndividualId",
+        "parameters": [
+          {
+            "name": "individualId",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/lifes/shp/individuals/findByFilter": {
+      "post": {
+        "tags": [
+          "Individual"
+        ],
+        "operationId": "Individual.findByFilter",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Individual"
+    }
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "application/xml",
+    "text/xml"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml",
+    "text/xml",
+    "application/javascript",
+    "text/javascript"
+  ],
+  "definitions": {
+    "x-any": {
+      "properties": {}
+    },
+    "InsurancePolicy": {
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "double"
+        },
+        "policyNumber": {
+          "type": "string"
+        },
+        "individualId": {
+          "type": "number",
+          "format": "double"
+        },
+        "policyStatusCode": {
+          "type": "string"
+        },
+        "policyEffectiveDatetime": {
+          "type": "string",
+          "format": "date"
+        },
+        "policyExpirationDatetime": {
+          "type": "string",
+          "format": "date"
+        },
+        "premiumAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "paymentModeCode": {
+          "type": "string"
+        },
+        "paidToDateTime": {
+          "type": "string",
+          "format": "date"
+        },
+        "lineOfBusinessId": {
+          "type": "number",
+          "format": "double"
+        },
+        "nextPreimumPaymentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "lastPaymentDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "IndividualAddress": {
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "double"
+        },
+        "individualId": {
+          "type": "number",
+          "format": "double"
+        },
+        "mobilePhoneNumber": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        },
+        "addressLine1": {
+          "type": "string"
+        },
+        "addressLine2": {
+          "type": "string"
+        },
+        "addressLine3": {
+          "type": "string"
+        },
+        "addressLine4": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "MasterIndividual": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "Individual": {
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "double"
+        },
+        "masterIndividualId": {
+          "type": "string"
+        },
+        "socialSecurityNo": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "middleName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

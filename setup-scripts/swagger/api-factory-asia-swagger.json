@@ -1,0 +1,1375 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "myaxa-apifactory"
+  },
+  "basePath": "/api",
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "application/xml",
+    "text/xml"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml",
+    "text/xml",
+    "application/javascript",
+    "text/javascript"
+  ],
+  "paths": {
+    "/v1/digital-accounts/customer-contacts": {
+      "get": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "Returns customer contact info for verification",
+        "operationId": "DigitalAccount.customerContactForVerification",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID document number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "query",
+            "description": "Type of document. Examples: HKID or PASSPORT.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "coreParty": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/digital-accounts/policy-numbers": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "Assign policy numbers to a digital account",
+        "operationId": "DigitalAccount.associatePolicyNumbersGeneric",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Token.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policyNumbers",
+            "in": "formData",
+            "description": "policyNumbers.",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "emailAddres/nationalId/...",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/digital-accounts/email/token/generate": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "operationId": "DigitalAccount.generateTokenForChangeEmail",
+        "parameters": [
+          {
+            "name": "currentEmailAddress",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "newEmailAddress",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "emailAddressValidatedToken": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/digital-accounts/policy-numbers/associate": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Associate policy numbers to the digital account. This methods gets executed only if the access token is active for the given user\n      ",
+        "operationId": "DigitalAccount.associatePolicyNumbers",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Token.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policyNumbers",
+            "in": "formData",
+            "description": "policyNumbers.",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/1fa/generic/authenticate": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Generate accessToken, refreshToken for authentication used for 1 factors.<br><br>\n                    Response also include a TTL for the accessToken and an array of policies.",
+        "operationId": "AuthToken.authenticate",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "Client's email or phone number.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "emailAddress or phoneNumber.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password used for authentication.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "algo",
+            "in": "formData",
+            "description": "Algorithm used to encrypt password such as RSA1024.<br><br>\n                        This field is optional when password is not encrypted.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "uuid",
+            "in": "formData",
+            "description": "UUID used to decrypt password.<br><br>\n                        UUID is generated by /encryptions/public-key/generate.<br><br>\n                        This field is optional when password is not encrypted.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                },
+                "policies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "ttl": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/2fa/generate": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Verifies the userid (nationalID) & password against LDAP<to be discussed with OneIT>.                     Password provided by end user and uuid provided by API.                     Http header should have country code. (SG, PH, HK, MY).                     Returns authorization token to authenticate an account on the next call and                     phone number to be used by MW for sending OTP.                     There should be a audit report who, when and what did about authentication.",
+        "operationId": "AuthToken.generateTokenForAuthentication",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "National Id address or email Address of the user.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "nationalId or emailAddress",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Encrypted password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "algo",
+            "in": "formData",
+            "description": "none or RSA1024",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "UUID",
+            "in": "formData",
+            "description": "UUID to be used by Digital Account to retrieve Private Key generated by                         /encryptions/public-key/generate generated for decrypting the password.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/2fa/verify": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Verifies token if valid against mongo and not yet expired",
+        "operationId": "AuthToken.verifyTokenForAuthentication",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "token from /authentications/2fa/generate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "nationalId or emailAddress",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/2fa/authenticate": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Verifies the token for authentication used for 2 factors.       UUID for decryption provided by frontend and token provided by API call.      Token should be restricted to the scope of authentication only (not other forgot password,...)       Token should be restricted to the country which generate the token.       Token should be expired after one usage.      Returns access token, refresh token, access token ttl.       Account profile information will be inside the access token (national id/email/phone...)       Every failed and success attempt stored in db.        There should be a audit report who, when and what did about authentication.       Http header should have country code. (SG, PH, HK, MY). ",
+        "operationId": "AuthToken.authenticateWithToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Authorization token generated by /authentications/tokens/2fa/generate api call                         for securing 2 factors authentication",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "nationalId or emailAddress",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                },
+                "accessTokenTtl": {
+                  "description": "accessToken expiration time. Usage: Information necessary for the MyAxa App to handle its token refresh management",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/2fa/refresh": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "\n      If refresh token is valid and not expired, send back a new access token and the original not updated refresh token.<br><br>\n      Note: The new access token and the current refresh token should have the same payload information as the old ones.<br>\n            Change is payload with lastLogInTime\n      ",
+        "operationId": "AuthToken.refreshTokenGeneric",
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "formData",
+            "description": "Refresh Token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Can be emailAddres/nationalId",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                },
+                "accessTokenTtl": {
+                  "description": "accessToken expiration time. Usage: Information necessary for the MyAxa App to handle its token refresh management",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/1fa/authenticate": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Verifies the userid(email) & password against LDAP<to be discussed with OneIT>.<br><br>\n      Returns Auth token if success.<br><br>\n      Token has EmailId,Policy no. and expiry date.<br><br>\n      Every failed and success attempt stored in db.<br><br>\n      In future phone as user id will be implemented.<br><br>\n      Returns access token, refresh token, policy number list and account profile information (national id/email/phone...)<br><br>\n      There should be a audit report who, when and what did about authentication.<br><br>\n      If password expires there should not be authentication.<br><br>\n      *<b>Required Header: x-user-country code (2 digit string).</b>\n      ",
+        "operationId": "AuthToken.authenticateDigitalAccount",
+        "parameters": [
+          {
+            "name": "emailAddress",
+            "in": "formData",
+            "description": "Email address of the digital account user.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/1fa/verify": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Verify or validate valid/in-valid token\n      ",
+        "operationId": "AuthToken.verifyToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Token to be verify.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/1fa/refresh": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      If refresh token is valid and not expired, send back a new access token and the original not updated refresh token.<br><br>\n      Note: The new access token and the current refresh token should have the same payload information as the old ones.\n      ",
+        "operationId": "AuthToken.refreshToken",
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "formData",
+            "description": "Refresh Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                },
+                "accessTokenTtl": {
+                  "description": "accessToken expiration time. Usage: Information necessary for the MyAxa App to handle its token refresh management",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/1fa/revoke": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "\n    << Freeze for PH >><br><br>\n    Revoke / Logout both access and refresh tokens\n    ",
+        "operationId": "AuthToken.revokeToken",
+        "parameters": [
+          {
+            "name": "accessToken",
+            "in": "formData",
+            "description": "Access Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/tokens/generate": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n        Verify non existence and uniqueness of userId and generate authorization token.<br><br>\n        Http header should have country code. (SG, PH, HK, MY).<br><br>\n        SG - National ID: NRIC, FIN or Passport as national ID. Expiry of token to be 30 mn.\n        ",
+        "operationId": "Registration.generateValidationToken",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "Value of an user identificator.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Type of an user ID. Examples: nationalId, email.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "payload",
+            "in": "formData",
+            "description": "JSON dictionary with data that needs to be stored inside a token payload.<br>\n            policies : [{policyName, policyNo}]\n          ",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "contactInfo": {
+                  "description": "if HK",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/tokens/validate": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n        Verify non existence and uniqueness generate authorization token.<br><br>\n        Http header should have country code. (SG, PH, HK, MY).<br><br>\n        SG - National ID: NRIC, FIN or Passport as national ID. Expiry of token to be 30 mn.\n        ",
+        "operationId": "Registration.validateToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Type of an user ID. Examples: nationalId, email.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/tokens/verify": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "Verify that registration token is valid without destroying it.",
+        "operationId": "Registration.verifyToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Type of an user ID. Examples: nationalId, email.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/create": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n        Verify non existence and uniqueness generate authorization token.<br><br>\n        Http header should have country code. (SG, PH, HK, MY).<br><br>\n        SG - National ID: NRIC, FIN or Passport as national ID. Expiry of token to be 30 mn.\n        <br>[Alex to provide password business rule for SG].\n        ",
+        "operationId": "Registration.createDigitalAccount",
+        "parameters": [
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Type of an user ID. Examples: nationalId, email.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Token.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "algo",
+            "in": "formData",
+            "description": "Encryption algorithm to use. Ex: none, RSA1024.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "UUID",
+            "in": "formData",
+            "description": "UUID to be used by Digital Account to retrieve Private Key generated by                           /encryptions/public-key/generate generated for decrypting the password.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/tokens/email-validation/generate": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Verify uniqueness of the email and generate JWT Token, based on Email and policy no. with expiry period for 1 day.<br><br>\n      Http header should have country code. (SG, PH, HK, MY).<br><br>\n      Email and policy number should be provided.\n      ",
+        "operationId": "Registration.generateTokenForEmailValidation",
+        "parameters": [
+          {
+            "name": "emailAddress",
+            "in": "formData",
+            "description": "Email address of the user.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policyNumber",
+            "in": "formData",
+            "description": "Policy number of the user.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/tokens/email-validation/verify": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Verify token is valid and has not expired'.<br><br>\n      Return back updated Token stating email is verified.<br><br>\n      Usage: This endpoint is used when the end user clicks the url sent to his email address.\n        ",
+        "operationId": "Registration.verifyEmailValidationToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Stored token.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/registrations/create-by-email": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Create new digital account using customer email, password provided by end user and token provided by API.\n      ",
+        "operationId": "Registration.createDigitalAccountByEmail",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Token.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/encryptions/passwords/encrypt": {
+      "post": {
+        "tags": [
+          "Encryption"
+        ],
+        "summary": "Encrypt password for QA environment only",
+        "operationId": "Encryption.encryptPassword",
+        "parameters": [
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "password to be encrypted",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "publicKey",
+            "in": "formData",
+            "description": "publickey for encryption",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "encryptedPassword": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/encryptions/public-key/generate": {
+      "post": {
+        "tags": [
+          "Encryption"
+        ],
+        "summary": "Get a server public key to perform encryption.                     Digital Account will generated a pair of public/private keys using the uuid provided.                     Return the public keys and keep the private key linked to uuid for later decryption.                     Encryption private keys to be valid for 2 mn.",
+        "operationId": "Encryption.generatePublicKeyForEncryption",
+        "parameters": [
+          {
+            "name": "UUID",
+            "in": "formData",
+            "description": "UUID to associated return public key to generated private key for decryption by the Digital Account.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publicKey": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/reset/token/generate": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "Generate a token for resetting password",
+        "operationId": "Password.generateTokenForResettingPassword",
+        "parameters": [
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "nationalId or emailAddress",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "National Id address or email Address of the user.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "description": "An authorization token for resetting password",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/reset/token/verify": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "To verify if the authentication token valid.<br>\n            A valid token means it has not expired and exists in database\n            It will generate a verified token for resetting the password if the authentication token is checked valid.\n            ",
+        "operationId": "Password.verifyTokenForResetPassword",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "The authentication token generated from /passwords/reset/token/generate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "nationalId or emailAddress",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "verifiedToken": {
+                  "description": "The access token for changing/ resetting the password",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/change-with-token": {
+      "put": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n      Change old password with new password.<br><br>\n      This API should be secure with the access token in the HEADER x-authorization-apifactory.<br><br>\n      Id of the user to change password should be linked to the access token<br><br>\n      Note: The name \"x-authorization-apifactory\" Header is different from \"authorization\" Header in MyAxa App to allow<br><br>\n            entities MW to create an intermediary \"authorization\" JWT containing \"x-authorization-apifactory\" token<br><br>\n            and any other information needed by MW and use mobile-mw $copy functionality.<br><br>\n      Password should not be the last 13 passwords set and follow password format rule.<br><br>\n      Old and Password provided by end user and token provided by API.\n      ",
+        "operationId": "Password.changePassword",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "token provided by /authentications/2fa/authenticate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "userIdType could be emailAddress or nationalId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "oldPassword",
+            "in": "formData",
+            "description": "Old Password Encrypted or not",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "newPassword",
+            "in": "formData",
+            "description": "New Password Encrypted or not",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "algo",
+            "in": "formData",
+            "description": "algo could be RSA1024 or none",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "uuid",
+            "in": "formData",
+            "description": "uuid to be used by Digital Account to retrieve Private Key generated by                         /encryptions/public-key/generate generated for decrypting the password.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/reset": {
+      "put": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n        Reset password with token\n        ",
+        "operationId": "Password.resetPasswordWithToken",
+        "parameters": [
+          {
+            "name": "userIdType",
+            "in": "formData",
+            "description": "Type of document. Examples: emailAddress or nationalId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "New password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Authorized token to reset password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "algo",
+            "in": "formData",
+            "description": "Algorithm used to decode password, could be RSA1024 or none",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "uuid",
+            "in": "formData",
+            "description": "UUID used by devops to trace problems",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/change-with-old-password": {
+      "put": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Update user password and password expiration.<br><br>\n      Possible error conditions<br><br>\n      - NEW_PASSWORD_TOO_SHORT<br><br>\n      - NEW_PASSWORD_REPEAT_OF_PREVIOUS<br><br>\n      - LDAP_AUTHENTICATE\n      ",
+        "operationId": "Password.changePasswordWithOldPassword",
+        "parameters": [
+          {
+            "name": "passwordOld",
+            "in": "formData",
+            "description": "Old Password.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "passwordNew",
+            "in": "formData",
+            "description": "New Password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "accessToken",
+            "in": "formData",
+            "description": "Access Token",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/forgot/tokens/generate": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Generates and persist token, this token needs to be send when calling changePasswordWithToken() API.\n      ",
+        "operationId": "Password.generateTokenForForgotPasswordUrl",
+        "parameters": [
+          {
+            "name": "emailAddress",
+            "in": "formData",
+            "description": "Login Id/Email.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/forgot/tokens/verify": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Verify a token generated by generateTokenForForgotPasswordUrl is valid and has not expired\n      ",
+        "operationId": "Password.verifyForgotPasswordToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Stored token.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/passwords/change-with-forgot-token": {
+      "put": {
+        "tags": [
+          "Password"
+        ],
+        "summary": "\n      << Freeze for PH >><br><br>\n      Recieves change password token and update digital account password.\n      ",
+        "operationId": "Password.changePasswordWithToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "Verified Token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "passwordNew",
+            "in": "formData",
+            "description": "New Password",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/life/individuals": {
+      "get": {
+        "tags": [
+          "Life"
+        ],
+        "summary": "Get all the data of a User in Oracle Data Source",
+        "operationId": "Life.individuals",
+        "parameters": [
+          {
+            "name": "accessToken",
+            "in": "query",
+            "description": "Access Token",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lifeData": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "x-any": {
+      "properties": {}
+    }
+  },
+  "tags": [
+    {
+      "name": "DigitalAccount"
+    },
+    {
+      "name": "AuthToken"
+    },
+    {
+      "name": "Registration"
+    },
+    {
+      "name": "Encryption"
+    },
+    {
+      "name": "Password"
+    },
+    {
+      "name": "ConnectionTest"
+    },
+    {
+      "name": "DevAdmin"
+    },
+    {
+      "name": "Life"
+    }
+  ]
+}

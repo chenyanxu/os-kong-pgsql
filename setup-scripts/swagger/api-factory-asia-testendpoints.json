@@ -1,0 +1,459 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "myaxa-apifactory"
+  },
+  "basePath": "/api",
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "application/xml",
+    "text/xml"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml",
+    "text/xml",
+    "application/javascript",
+    "text/javascript"
+  ],
+  "paths": {
+    "/v1/digital-accounts/before-test": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "Setup test environment for DigitalAccount.",
+        "operationId": "DigitalAccount.beforeTest",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/digital-accounts/purge-all": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "Purge all records in DigitalAccount for QA environment only",
+        "operationId": "DigitalAccount.purgeAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/digital-accounts/ldap-purge-all": {
+      "post": {
+        "tags": [
+          "DigitalAccount"
+        ],
+        "summary": "Purge all records in LDAP for QA environment only",
+        "operationId": "DigitalAccount.ldapPurgeAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/before-test": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Setup test environment for model.",
+        "operationId": "AuthToken.beforeTest",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/purge-all": {
+      "post": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Purge all records in AuthToken for QA environment only",
+        "operationId": "AuthToken.purgeAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/authentications/tokens/database-fixtures": {
+      "get": {
+        "tags": [
+          "AuthToken"
+        ],
+        "summary": "Get Database Fixtures",
+        "operationId": "AuthToken.databaseFixtures",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/encryptions/purge-all": {
+      "post": {
+        "tags": [
+          "Encryption"
+        ],
+        "summary": "Purge all records in Encryption for QA environment only",
+        "operationId": "Encryption.purgeAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/connection-test/test-ldap-preprod": {
+      "post": {
+        "tags": [
+          "ConnectionTest"
+        ],
+        "operationId": "ConnectionTest.testLdapPreProd",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "returnString": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/connection-test/test-mongodb": {
+      "post": {
+        "tags": [
+          "ConnectionTest"
+        ],
+        "operationId": "ConnectionTest.testMongodb",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "returnString": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/connection-test/test-openldap": {
+      "post": {
+        "tags": [
+          "ConnectionTest"
+        ],
+        "operationId": "ConnectionTest.testOpenldap",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "returnString": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/connection-test/test-fluentd-preprod": {
+      "post": {
+        "tags": [
+          "ConnectionTest"
+        ],
+        "operationId": "ConnectionTest.testFluentDPreProd",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "returnString": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/connection-test/test-fluentd-mockerror": {
+      "post": {
+        "tags": [
+          "ConnectionTest"
+        ],
+        "operationId": "ConnectionTest.testFluentDMockError",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "returnString": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/dev-admin/search": {
+      "post": {
+        "tags": [
+          "DevAdmin"
+        ],
+        "summary": "Searches records in dn.",
+        "operationId": "DevAdmin.search",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "domain",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "formData",
+            "description": "example: (objectClass=person)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "operation",
+            "in": "formData",
+            "description": "exaples: delete",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/dev-admin/mongodb/collections/search": {
+      "post": {
+        "tags": [
+          "DevAdmin"
+        ],
+        "summary": "Searches records in dn.",
+        "operationId": "DevAdmin.mongoDbSearchCollection",
+        "parameters": [
+          {
+            "name": "collection",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/life/mockData": {
+      "post": {
+        "tags": [
+          "Life"
+        ],
+        "summary": "Get all the data of a User in Oracle Data Source",
+        "operationId": "Life.mockData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "custom": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "x-any": {
+      "properties": {}
+    }
+  },
+  "tags": [
+    {
+      "name": "DigitalAccount"
+    },
+    {
+      "name": "AuthToken"
+    },
+    {
+      "name": "Registration"
+    },
+    {
+      "name": "Encryption"
+    },
+    {
+      "name": "Password"
+    },
+    {
+      "name": "ConnectionTest"
+    },
+    {
+      "name": "DevAdmin"
+    },
+    {
+      "name": "Life"
+    }
+  ]
+}

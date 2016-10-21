@@ -1,0 +1,20 @@
+{
+  "name": "kong-setupscripts",
+  "version": "1.0.0",
+  "description": "NodeJS scripts to build Kong API Gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Reid Lai",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "co": "^4.6.0",
+    "lodash": "^4.13.1",
+    "nconf": "^0.8.4",
+    "node-fetch": "^1.5.3",
+    "node-rest-client": "^1.8.0",
+    "verbal-expressions": "^0.2.1",
+    "wait.for": "^0.6.6"
+  }
+}
