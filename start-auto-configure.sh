@@ -4,7 +4,7 @@ echo "==> Waiting for Kong to be ready..."
 
 #while ! nc -vz localhost 8000; do
 while ! nc --recv-only --send-only -w 1 localhost 8000; do
-  echo "==> $(date) Connecting to localhost port 8000..."
+  echo "==> $(date) Connecting to Kong localhost port 8000..."
   sleep 1
 done
 
