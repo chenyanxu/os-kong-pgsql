@@ -25,7 +25,7 @@ echo "==> PostgreSQL ready."
 echo "==> Start Kong auto configure process..."
 
 # Runs in the background then exits when complete
-/startup-auto-configure.sh &
+/start-auto-configure.sh &
 
 echo "==> Started Kong auto configure process..."
 
